@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useToast } from "@chakra-ui/react";
 import { Link, useNavigate } from "react-router-dom";
 
 import useInput from "../../hooks/useInput";
