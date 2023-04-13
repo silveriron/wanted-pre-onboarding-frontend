@@ -13,7 +13,7 @@ const TodoPage = () => {
   const refreshTodos = useCallback(async () => {
     const todos = await getTodosHandler();
     setTodos(todos);
-  }, []);
+  }, [getTodosHandler]);
 
   useEffect(() => {
     if (window) {
@@ -21,21 +21,22 @@ const TodoPage = () => {
 
       if (!token) {
         navigate("/signin");
+      } else {
+        refreshTodos();
       }
-
-      refreshTodos();
     }
-  }, []);
+  }, [navigate, refreshTodos]);
 
   return (
-    <>
+    <main className="h-5/6">
+      <h1 className="text-center mb-10 text-3xl font-bold">Todos</h1>
       <TodoInput refreshTodos={refreshTodos} />
-      <ul>
+      <ul className="flex flex-col gap-5">
         {todos?.map((todo) => (
           <TodoItem refreshTodos={refreshTodos} key={todo.id} data={todo} />
         ))}
       </ul>
-    </>
+    </main>
   );
 };
 

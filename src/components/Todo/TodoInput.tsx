@@ -8,14 +8,24 @@ const TodoInput = ({ refreshTodos }: { refreshTodos: () => void }) => {
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await createTodoHandler({ todo: value });
+    await createTodoHandler({ todo: value });
     refreshTodos();
   };
 
   return (
-    <form onSubmit={onSubmit}>
-      <input data-testid="new-todo-input" value={value} onChange={onChange} />
-      <button data-testid="new-todo-add-button">추가</button>
+    <form onSubmit={onSubmit} className="flex mb-10 gap-10">
+      <input
+        className="border-slate-900 border-2 rounded-md"
+        data-testid="new-todo-input"
+        value={value}
+        onChange={onChange}
+      />
+      <button
+        className="bg-slate-900 text-white px-10 rounded"
+        data-testid="new-todo-add-button"
+      >
+        추가
+      </button>
     </form>
   );
 };

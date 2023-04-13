@@ -12,7 +12,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ChakraProvider>
-      <RouterProvider router={router} />
+      <div className="w-full h-screen flex justify-center items-center">
+        <RouterProvider router={router} />
+      </div>
     </ChakraProvider>
   </React.StrictMode>
 );

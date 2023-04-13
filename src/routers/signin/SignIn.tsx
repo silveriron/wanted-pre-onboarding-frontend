@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import useInput from "../../hooks/useInput";
 import { emailValidator, passwordValidator } from "../../lib/validator";
@@ -82,6 +82,11 @@ const Signin = () => {
       <Button disabled={!isFormCheck} testid="signin-button">
         로그인
       </Button>
+      <Link className="text-center" to="/signup">
+        <span className="hover:text-red-600 hover:border-b-red-600 border-b-2">
+          회원가입
+        </span>
+      </Link>
     </form>
   );
 };

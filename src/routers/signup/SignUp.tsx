@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../components/Sign/Button";
 import Input from "../../components/Sign/Input";
 import useInput from "../../hooks/useInput";
 import { emailValidator, passwordValidator } from "../../lib/validator";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useApi from "../../hooks/useApi";
 
 const Signup = () => {
@@ -80,6 +80,11 @@ const Signup = () => {
       <Button disabled={!isFormCheck} testid="signup-button">
         회원가입
       </Button>
+      <Link className="text-center" to="/signin">
+        <span className="hover:text-red-600 hover:border-b-red-600 border-b-2">
+          로그인
+        </span>
+      </Link>
     </form>
   );
 };

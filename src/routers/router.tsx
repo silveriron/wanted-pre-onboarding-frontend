@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
-import Main from "./main/Main";
-import Signin from "./signin/SignIn";
-import Signup from "./signup/SignUp";
-import Todo from "./todo/Todo";
+import Main from "./Main/Main";
+import Signin from "./SignIn/SignIn";
+import Signup from "./SignUp/SignUp";
+import Todo from "./Todo/Todo";
 
 const router = createBrowserRouter([
   {
