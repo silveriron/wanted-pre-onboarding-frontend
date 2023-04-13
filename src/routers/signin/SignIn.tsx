@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 import useInput from "../../hooks/useInput";
 import { emailValidator, passwordValidator } from "../../lib/validator";
-import { signIn } from "../../lib/api";
 import Input from "../../components/Sign/Input";
 import Button from "../../components/Sign/Button";
+import useApi from "../../hooks/useApi";
 
 const Signin = () => {
   const [emailError, setEmailError] = useState(false);
@@ -25,14 +25,14 @@ const Signin = () => {
   } = useInput({
     validator: passwordValidator,
   });
-  const toast = useToast();
   const navigate = useNavigate();
+  const { signInhandler } = useApi();
 
   useEffect(() => {
     if (window) {
-      const jwt = localStorage.getItem("JWT");
+      const token = localStorage.getItem("access_token");
 
-      if (jwt) {
+      if (token) {
         navigate("/todo");
       }
     }
@@ -52,21 +52,7 @@ const Signin = () => {
       return;
     }
 
-    try {
-      const res = await signIn({ email, password });
-
-      if (res.status === 200) {
-        localStorage.setItem("JWT", res.data.access_token);
-        navigate("/todo");
-      }
-    } catch (error: any) {
-      const title = error.response.data.message;
-      toast({
-        title: title,
-        status: "error",
-        duration: 3000,
-      });
-    }
+    signInhandler({ email, password });
   };
 
   const isFormCheck = isEmailValidate && isPasswordValidate;

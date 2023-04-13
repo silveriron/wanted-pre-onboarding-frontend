@@ -6,6 +6,8 @@ if (process.env.REACT_APP_API_URL === undefined) {
   throw new Error("API_URL이 필요합니다.");
 }
 
+const token = localStorage.getItem("access_token");
+
 export const instance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 });
@@ -19,10 +21,10 @@ export const signIn = async (data: UserDto) => {
 };
 
 export const createTodo = async (data: CreateTodoDto) => {
-  return await instance.post<Todo>("/todo", data, {
+  return await instance.post<Todo>("/todos", data, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
@@ -30,7 +32,7 @@ export const createTodo = async (data: CreateTodoDto) => {
 export const getTodos = async () => {
   return await instance.get<Todo[]>("/todos", {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
@@ -39,7 +41,7 @@ export const updataTodo = async (id: number, data: updateTodoDto) => {
   return await instance.put<Todo>(`/todos/${id}`, data, {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };
@@ -47,7 +49,7 @@ export const updataTodo = async (id: number, data: updateTodoDto) => {
 export const deleteTodo = async (id: number) => {
   return await instance.delete(`/todos/${id}`, {
     headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 };

@@ -2,10 +2,9 @@ import { useEffect, useState } from "react";
 import Button from "../../components/Sign/Button";
 import Input from "../../components/Sign/Input";
 import useInput from "../../hooks/useInput";
-import { signUp } from "../../lib/api";
 import { emailValidator, passwordValidator } from "../../lib/validator";
-import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import useApi from "../../hooks/useApi";
 
 const Signup = () => {
   const [emailError, setEmailError] = useState(false);
@@ -24,14 +23,14 @@ const Signup = () => {
   } = useInput({
     validator: passwordValidator,
   });
-  const toast = useToast();
   const navigate = useNavigate();
+  const { signUphandler } = useApi();
 
   useEffect(() => {
     if (window) {
-      const jwt = localStorage.getItem("JWT");
+      const token = localStorage.getItem("access_token");
 
-      if (jwt) {
+      if (token) {
         navigate("/todo");
       }
     }
@@ -51,20 +50,7 @@ const Signup = () => {
       return;
     }
 
-    try {
-      const res = await signUp({ email, password });
-
-      if (res.status === 201) {
-        navigate("/signin");
-      }
-    } catch (error: any) {
-      const title = error.response.data.message;
-      toast({
-        title: title,
-        status: "error",
-        duration: 3000,
-      });
-    }
+    signUphandler({ email, password });
   };
 
   const isFormCheck = isEmailValidate && isPasswordValidate;
